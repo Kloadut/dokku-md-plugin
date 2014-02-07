@@ -143,6 +143,9 @@ case "$1" in
         PORT=$(cat "$DOKKU_ROOT/.mariadb/port_$APP")
         # Link database using dokku command
         dokku config:set $APP "DATABASE_URL=mysql2://root:$DB_PASSWORD@172.17.42.1:$PORT/db"
+        #All DB-variables as ENV
+        dokku config:set $APP "DB_HOST=$IP DB_PASS=$DB_PASSWORD DB_NAME=db DB_PORT=3306 DB_USER=admin"
+        
         echo
         echo "-----> $APP linked to $DB_IMAGE database"
     fi
