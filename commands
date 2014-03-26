@@ -139,8 +139,8 @@ case "$1" in
             echo "Database is not initialized correctly"
             exit 1
         fi
-        DB_PASSWORD=$(cat "$DOKKU_ROOT/.mariadb/pwd_$APP")
-        PORT=$(cat "$DOKKU_ROOT/.mariadb/port_$APP")
+        DB_PASSWORD=$(cat "$DOKKU_ROOT/.mariadb/pwd_$3")
+        PORT=$(cat "$DOKKU_ROOT/.mariadb/port_$3")
         # Link database using dokku command
         dokku config:set $APP "DATABASE_URL=mysql2://root:$DB_PASSWORD@172.17.42.1:$PORT/db"
         echo
