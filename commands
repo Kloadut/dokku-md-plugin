@@ -135,7 +135,7 @@ case "$1" in
             exit 1
         fi
         DB_IMAGE="mariadb/$3"
-        if [[ ! -f "$DOKKU_ROOT/.mariadb/pwd_$APP" ]]; then
+        if [[ ! -f "$DOKKU_ROOT/.mariadb/pwd_$3" ]]; then
             echo "Database is not initialized correctly"
             exit 1
         fi
