@@ -193,7 +193,7 @@ case "$1" in
         PORT=$(cat "$DOKKU_ROOT/.mariadb/port_$2")
         # Check if user gave a filename
         if [[ -z $3 ]]; then
-            echo "Dumping to timestamped dump.sql"
+            echo "Dumping to $2-dump$(date +%s).sql"
             mysqldump --host=172.17.42.1 --user=root --port="$PORT" --password="$DB_PASSWORD" db > "$2-dump$(date +%s).sql"
             exit 1
         fi
