@@ -151,6 +151,25 @@ case "$1" in
     fi
     ;;
 
+  mariadb:console)
+    if $APP_EXISTS; then
+        # Check argument
+        if [[ -z $2 ]]; then
+            echo "You must specify a database name"
+            exit 1
+        fi
+        DB_IMAGE="mariadb/$2"
+        if [[ ! -f "$DOKKU_ROOT/.mariadb/pwd_$2" ]]; then
+            echo "Database is not initialized correctly"
+            exit 1
+        fi
+        DB_PASSWORD=$(cat "$DOKKU_ROOT/.mariadb/pwd_$2")
+        PORT=$(cat "$DOKKU_ROOT/.mariadb/port_$2")
+        # Open database using mysql-client
+        mysql -h 172.17.42.1 -u root --port "PORT" -p "DB_PASSWORD" db
+    fi
+    ;;
+
   mariadb:logs)
     DB_IMAGE=mariadb/$APP
     ID=$(docker ps -a | grep "$DB_IMAGE" |  awk '{print $1}')
@@ -163,6 +182,7 @@ case "$1" in
     mariadb:delete <app>     Delete specified MariaDB container
     mariadb:info <app>       Display database informations
     mariadb:link <app> <db>  Link an app to a MariaDB database
+    mariadb:console <app>    Open mysql-console to MariaDB container
     mariadb:logs <app>       Display last logs from MariaDB container
 EOF
     ;;
