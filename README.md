@@ -11,7 +11,7 @@ Installation
 ------------
 ```
 cd /var/lib/dokku/plugins
-git clone https://github.com/Kloadut/dokku-md-plugin mariadb
+git clone https://github.com/onnimonni/dokku-md-plugin mariadb
 dokku plugins-install
 ```
 
@@ -20,11 +20,13 @@ Commands
 --------
 ```
 $ dokku help
-     mariadb:create <app>     Create a MariaDB container
-     mariadb:delete <app>     Delete specified MariaDB container
-     mariadb:info <app>       Display database informations
-     mariadb:link <app> <db>  Link an app to a MariaDB database
-     mariadb:logs <app>       Display last logs from MariaDB contain
+     mariadb:create <app>      Create a MariaDB container
+     mariadb:delete <app>      Delete specified MariaDB container
+     mariadb:info <app>        Display database informations
+     mariadb:link <app> <db>   Link an app to a MariaDB database
+     mariadb:console <app>     Open mysql-console to MariaDB container
+     mariadb:dump <app> <file> Dump default db database into file
+     mariadb:logs <app>        Display last logs from MariaDB container
 ```
 
 Simple usage
