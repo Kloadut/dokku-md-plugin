@@ -1,3 +1,5 @@
+This fork just adds more ENV vars. It's nice not to parse the URL for eg wordpress.
+
 MariaDB plugin for Dokku
 ------------------------
 
