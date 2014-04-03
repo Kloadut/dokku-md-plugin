@@ -1,4 +1,5 @@
-This fork just adds more ENV vars. It's nice not to parse the URL for eg wordpress.
+This fork adds DB_HOST,DB_PASS,DB_NAME,DB_PORT envvars.
+It also adds command for connecting into MariaDB container console. So much easier to use than checking the url :)
 
 MariaDB plugin for Dokku
 ------------------------
