@@ -166,7 +166,8 @@ case "$1" in
         DB_PASSWORD=$(cat "$DOKKU_ROOT/.mariadb/pwd_$2")
         PORT=$(cat "$DOKKU_ROOT/.mariadb/port_$2")
         # Open database using mysql-client
-        echo "mysql -h 172.17.42.1 -u root --port=$PORT -p $DB_PASSWORD db"
+        echo "mysql --host=172.17.42.1 --user=root --port=$PORT --port=$DB_PASSWORD db"
+        mysql --host=172.17.42.1 --user=root --port="$PORT" --port="$DB_PASSWORD" db
     fi
     ;;
 
