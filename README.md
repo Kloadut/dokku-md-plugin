@@ -17,12 +17,19 @@ Commands
 --------
 ```
 $ dokku help
-     mariadb:create <app>     Create a MariaDB container
-     mariadb:delete <app>     Delete specified MariaDB container
-     mariadb:info <app>       Display database informations
-     mariadb:link <app> <db>  Link an app to a MariaDB database
-     mariadb:logs <app>       Display last logs from MariaDB contain
+     mariadb:create <app>      Create a MariaDB container
+     mariadb:delete <app>      Delete specified MariaDB container
+     mariadb:info <app>        Display database informations
+     mariadb:link <app> <db>   Link an app to a MariaDB database
+     mariadb:console <app>     Open mysql-console to MariaDB container
+     mariadb:dump <app> <file> Dump default db database into file <file> is optional. 
+     mariadb:logs <app>        Display last logs from MariaDB container
 ```
+
+Info
+--------
+This plugin adds following envvars to your project automatically:
+DATABASE_URL,DB_HOST,DB_PASSWORD,DB_NAME,DB_PORT
 
 Simple usage
 ------------
@@ -95,4 +102,14 @@ dokku mariadb:logs foo
 Database informations:
 ```
 dokku mariadb:info foo
+```
+
+Login to mariadb console
+```
+dokku mariadb:console
+```
+
+Import to existing database
+```
+dokku mariadb:console < import.sql
 ```
