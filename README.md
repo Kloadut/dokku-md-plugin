@@ -1,6 +1,3 @@
-This fork adds DB_HOST,DB_PASSWORD,DB_NAME,DB_PORT envvars.
-It also adds command for connecting into MariaDB container console. So much easier to use than checking the url :)
-
 MariaDB plugin for Dokku
 ------------------------
 
@@ -28,6 +25,11 @@ $ dokku help
      mariadb:dump <app> <file> Dump default db database into file <file> is optional. 
      mariadb:logs <app>        Display last logs from MariaDB container
 ```
+
+Info
+--------
+This plugin adds following envvars to your project automatically:
+DATABASE_URL,DB_HOST,DB_PASSWORD,DB_NAME,DB_PORT
 
 Simple usage
 ------------
@@ -100,4 +102,14 @@ dokku mariadb:logs foo
 Database informations:
 ```
 dokku mariadb:info foo
+```
+
+Login to mariadb console
+```
+dokku mariadb:console
+```
+
+Import to existing database
+```
+dokku mariadb:console < import.sql
 ```
