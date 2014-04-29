@@ -29,7 +29,13 @@ $ dokku help
 Info
 --------
 This plugin adds following envvars to your project automatically:
-DATABASE_URL,DB_HOST,DB_PASSWORD,DB_NAME,DB_PORT
+
+* DATABASE_URL
+* DB_HOST
+* DB_PORT
+* DB_NAME
+* DB_USER
+* DB_PASSWORD
 
 Simple usage
 ------------
