@@ -57,7 +57,7 @@ case "$1" in
     IMAGE=$(docker commit $ID)
     docker tag $IMAGE $DB_IMAGE
     # Launch container
-    ID=$(docker run -v $VOLUME -p 3306 -d $DB_IMAGE /usr/bin/start_mariadb.sh $DB_PASSWORD)
+    ID=$(docker run -v $VOLUME -p 172.17.42.1::3306 -d $DB_IMAGE /usr/bin/start_mariadb.sh $DB_PASSWORD)
     sleep 4
     # Store persistent volume
     if [[ ! -f "$DOKKU_ROOT/.mariadb/volume_$APP" ]]; then
@@ -69,7 +69,7 @@ case "$1" in
         echo $VOLUME_PATH > "$DOKKU_ROOT/.mariadb/volume_$APP"
     fi
     # Write port for further usage
-    PORT=$(docker port $ID 3306 | sed 's/0.0.0.0://')
+    PORT=$(docker port $ID 3306 | sed 's/172.17.42.1://')
     echo $PORT > "$DOKKU_ROOT/.mariadb/port_$APP"
     # Link to a potential existing app
     dokku mariadb:link $APP $APP
