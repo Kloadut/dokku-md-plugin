@@ -52,7 +52,7 @@ case "$1" in
         docker stop $ID > /dev/null
     fi
     # Fork DB image
-    ID=$(docker run -d kloadut/mariadb exit 0)
+    ID=$(docker run -d kloadut/mariadb /bin/bash "exit 0")
     docker wait $ID > /dev/null
     IMAGE=$(docker commit $ID)
     docker tag $IMAGE $DB_IMAGE
