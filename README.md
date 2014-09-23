@@ -8,7 +8,9 @@ Installation
 ------------
 ```
 cd /var/lib/dokku/plugins
-git clone https://github.com/Kloadut/dokku-md-plugin mariadb
+git clone --recursive https://github.com/Kloadut/dokku-md-plugin mariadb
+cd mariadb/dockerfiles
+git checkout master
 dokku plugins-install
 ```
 
