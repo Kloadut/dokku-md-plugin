@@ -217,10 +217,10 @@ case "$1" in
         PORT=$(cat "$DOKKU_ROOT/.mariadb/port_$2")
         # Check if user gave a filename
         if [[ -z $3 ]]; then
-            mysqldump --host=172.17.42.1 --user=root --port="$PORT" --password="$DB_PASSWORD" db
+            mysqldump --lock-tables=false --host=172.17.42.1 --user=root --port="$PORT" --password="$DB_PASSWORD" db
             exit 1
         fi
-        mysqldump --host=172.17.42.1 --user=root --port="$PORT" --password="$DB_PASSWORD" db > $3
+        mysqldump --lock-tables=false --host=172.17.42.1 --user=root --port="$PORT" --password="$DB_PASSWORD" db > $3
     fi
     ;;
 
