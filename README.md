@@ -8,7 +8,9 @@ Installation
 ------------
 ```
 cd /var/lib/dokku/plugins
-git clone https://github.com/Kloadut/dokku-md-plugin mariadb
+git clone --recursive https://github.com/Kloadut/dokku-md-plugin mariadb
+cd mariadb/dockerfiles
+git checkout master
 dokku plugins-install
 ```
 
@@ -23,13 +25,20 @@ $ dokku help
      mariadb:link <app> <db>   Link an app to a MariaDB database
      mariadb:console <app>     Open mysql-console to MariaDB container
      mariadb:dump <app> <file> Dump default db database into file <file> is optional. 
+     mariadb:dumpraw <app>     Dump default db database to std out
      mariadb:logs <app>        Display last logs from MariaDB container
 ```
 
 Info
 --------
 This plugin adds following envvars to your project automatically:
-DATABASE_URL,DB_HOST,DB_PASSWORD,DB_NAME,DB_PORT
+
+* DATABASE_URL
+* DB_HOST
+* DB_PORT
+* DB_NAME
+* DB_USER
+* DB_PASSWORD
 
 Simple usage
 ------------
@@ -112,4 +121,9 @@ dokku mariadb:console
 Import to existing database
 ```
 dokku mariadb:console < import.sql
+```
+
+Copy database from one container to another
+```
+ssh -t dokku@SERVER1.COM mariadb:dumpraw foo | ssh -t dokku@SERVER2.COM mariadb:console foo
 ```
