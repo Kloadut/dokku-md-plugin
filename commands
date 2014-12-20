@@ -138,7 +138,7 @@ case "$1" in
             # Link database using dokku command
             dokku config:set $APP "DATABASE_URL=mysql2://root:$DB_PASSWORD@172.17.42.1:$PORT/db"
             #All DB-variables as ENV
-            dokku config:set $APP "DB_HOST=172.17.42.1 DB_PASS=$DB_PASSWORD DB_NAME=db DB_PORT=$PORT DB_USER=root"
+            dokku config:set $APP "DB_HOST=172.17.42.1" "DB_PASS=$DB_PASSWORD" "DB_NAME=db" "DB_PORT=$PORT" "DB_USER=root"
             exit 1
         fi
         DB_IMAGE="mariadb/$3"
@@ -151,7 +151,7 @@ case "$1" in
         # Link database using dokku command
         dokku config:set $APP "DATABASE_URL=mysql2://root:$DB_PASSWORD@172.17.42.1:$PORT/db"
         #All DB-variables as ENV
-        dokku config:set $APP "DB_HOST=172.17.42.1 DB_PASSWORD=$DB_PASSWORD DB_NAME=db DB_PORT=$PORT DB_USER=root"
+        dokku config:set $APP "DB_HOST=172.17.42.1" "DB_PASSWORD=$DB_PASSWORD" "DB_NAME=db" "DB_PORT=$PORT" "DB_USER=root"
         
         echo
         echo "-----> $APP linked to $DB_IMAGE database"
