@@ -61,7 +61,7 @@ case "$1" in
     sleep 4
     # Store persistent volume
     if [[ ! -f "$DOKKU_ROOT/.mariadb/volume_$APP" ]]; then
-        VOLUME_PATH=$(docker inspect $ID | grep /var/lib/docker/vfs/dir/ | awk '{print $2}' | sed -e's/"//g')
+        VOLUME_PATH=$(docker inspect $ID | grep /docker/vfs/dir/ | awk '{print $2}' | sed -e's/"//g')
         if [[ -z $VOLUME_PATH ]]; then
             echo "Your docker version is too old, please update it"
             exit 1
