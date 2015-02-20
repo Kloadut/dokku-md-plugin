@@ -104,9 +104,17 @@ case "$1" in
     fi
     # Remove persistent volume
     if [[ -f "$DOKKU_ROOT/.mariadb/volume_$APP" ]]; then
+        VOLUME="$(cat $DOKKU_ROOT/.mariadb/volume_$APP)"
         sleep 4
-        rm -rf "$(cat $DOKKU_ROOT/.mariadb/volume_$APP)"
+        
+        if [[ -d "$VOLUME" ]]; then
+            echo "-----> Persistant Storage cannot be deleted !"
+            echo "---------> Linkfile 'DOKKU_ROOT/.mariadb/volume_$APP' won't be deleted"
+            exit 1
+        fi
+        
         rm -f "$DOKKU_ROOT/.mariadb/volume_$APP"
+
     fi
     echo
     echo "-----> MariaDB container deleted: $DB_IMAGE"
