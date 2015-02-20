@@ -27,6 +27,7 @@ $ dokku help
      mariadb:dump <app> <file> Dump default db database into file <file> is optional. 
      mariadb:dumpraw <app>     Dump default db database to std out
      mariadb:logs <app>        Display last logs from MariaDB container
+     mariadb:list              Display list of MariaDB containers
 ```
 
 Info

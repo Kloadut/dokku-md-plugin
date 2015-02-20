@@ -3,7 +3,7 @@ set -e;
 
 # Check if name is specified
 if [[ $1 == mariadb:* ]]; then
-    if [[ -z $2 ]]; then
+    if [ -z $2 ] && [ $1 != mariadb:list ]; then
         echo "You must specify an app name"
         exit 1
     else
@@ -232,6 +232,18 @@ case "$1" in
     fi
     ;;
 
+  mariadb:list)
+    CONTAINERS=$(ls $DOKKU_ROOT/.mariadb/volume* 2> /dev/null | sed -e 's/_/ /' | awk '{print $2}')
+    if [[ -z $CONTAINERS ]]; then
+        echo "There are no MariaDB containers created."
+    else
+        echo "MariaDB containers:"
+        for CONTAINER in $CONTAINERS; do
+            echo "  - $CONTAINER"
+        done
+    fi
+    ;;
+
   mariadb:logs)
     DB_IMAGE=mariadb/$APP
     ID=$(docker ps -a | grep "$DB_IMAGE" |  awk '{print $1}')
@@ -248,6 +260,7 @@ case "$1" in
     mariadb:dump <app> <file> Dump default db database into file
     mariadb:dumpraw <app>     Dump default db database to std out 
     mariadb:logs <app>        Display last logs from MariaDB container
+    mariadb:list              Display list of MariaDB containers
 EOF
     ;;
 
