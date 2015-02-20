@@ -86,7 +86,7 @@ case "$1" in
     if [[ ! -z $ID ]]; then
         docker kill $ID > /dev/null
         sleep 1
-        docker rm $ID > /dev/null
+        docker rm -v $ID > /dev/null
         sleep 1
     fi
     # Remove image
