@@ -167,46 +167,53 @@ case "$1" in
     ;;
 
   mariadb:console)
-    if $APP_EXISTS; then
-        # Check argument
-        if [[ -z $2 ]]; then
-            echo "You must specify a database name"
-            exit 1
-        fi
-        DB_IMAGE="mariadb/$2"
-        if [[ ! -f "$DOKKU_ROOT/.mariadb/pwd_$2" ]]; then
-            echo "Database is not initialized correctly"
-            exit 1
-        fi
-        DB_PASSWORD=$(cat "$DOKKU_ROOT/.mariadb/pwd_$2")
-        PORT=$(cat "$DOKKU_ROOT/.mariadb/port_$2")
-        # Open database using mysql-client
-        mysql --host=172.17.42.1 --user=root --port="$PORT" --password="$DB_PASSWORD" db
+    if [[ ! -f "$DOKKU_ROOT/.mariadb/pwd_$APP" ]]; then
+        echo "Unknown (or too old) MariaDB container"
+        exit 1
     fi
+    
+    # Check argument
+    if [[ -z $2 ]]; then
+        echo "You must specify a database name"
+        exit 1
+    fi
+    DB_IMAGE="mariadb/$2"
+    if [[ ! -f "$DOKKU_ROOT/.mariadb/pwd_$2" ]]; then
+        echo "Database is not initialized correctly"
+        exit 1
+    fi
+    DB_PASSWORD=$(cat "$DOKKU_ROOT/.mariadb/pwd_$2")
+    PORT=$(cat "$DOKKU_ROOT/.mariadb/port_$2")
+    # Open database using mysql-client
+    mysql --host=172.17.42.1 --user=root --port="$PORT" --password="$DB_PASSWORD" db
     ;;
 
   mariadb:dump)
-    if $APP_EXISTS; then
-        # Check argument
-        if [[ -z $2 ]]; then
-            echo "You must specify a database name"
-            exit 1
-        fi
-        DB_IMAGE="mariadb/$2"
-        if [[ ! -f "$DOKKU_ROOT/.mariadb/pwd_$2" ]]; then
-            echo "Database is not initialized correctly"
-            exit 1
-        fi
-        DB_PASSWORD=$(cat "$DOKKU_ROOT/.mariadb/pwd_$2")
-        PORT=$(cat "$DOKKU_ROOT/.mariadb/port_$2")
-        # Check if user gave a filename
-        if [[ -z $3 ]]; then
-            echo "Dumping to $2-dump$(date +%s).sql"
-            mysqldump --host=172.17.42.1 --user=root --port="$PORT" --password="$DB_PASSWORD" db > "$2-dump$(date +%s).sql"
-            exit 1
-        fi
-        mysqldump --host=172.17.42.1 --user=root --port="$PORT" --password="$DB_PASSWORD" db > $3
+    if [[ ! -f "$DOKKU_ROOT/.mariadb/pwd_$APP" ]]; then
+        echo "Unknown (or too old) MariaDB container"
+        exit 1
     fi
+    
+    # Check argument
+    if [[ -z $2 ]]; then
+        echo "You must specify a database name"
+        exit 1
+    fi
+    DB_IMAGE="mariadb/$2"
+    if [[ ! -f "$DOKKU_ROOT/.mariadb/pwd_$2" ]]; then
+        echo "Database is not initialized correctly"
+        exit 1
+    fi
+    DB_PASSWORD=$(cat "$DOKKU_ROOT/.mariadb/pwd_$2")
+    PORT=$(cat "$DOKKU_ROOT/.mariadb/port_$2")
+    
+    # Check if user gave a filename
+    if [[ -z $3 ]]; then
+        echo "Dumping to $2-dump$(date +%s).sql"
+        mysqldump --host=172.17.42.1 --user=root --port="$PORT" --password="$DB_PASSWORD" db > "$2-dump$(date +%s).sql"
+        exit 1
+    fi
+    mysqldump --host=172.17.42.1 --user=root --port="$PORT" --password="$DB_PASSWORD" db > $3
     ;;
 
   mariadb:dumpraw)
