@@ -1,0 +1,4 @@
+[plugin]
+description = "MariaDB plugin for Dokku"
+version = "0.1.0"
+[plugin.config]
